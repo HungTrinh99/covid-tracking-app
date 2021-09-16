@@ -1,0 +1,55 @@
+@import "~antd/dist/antd.css";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-red: #fc3c3c;
+  --color-green: #90ee90;
+  --color-dark: #6a5d5d;
+}
+
+body {
+  background-color: #f5f6fa;
+  color: #6a5d5d;
+}
+
+.container {
+  width: 90%;
+  margin: 32px auto;
+}
+.dashboard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard__header h1 {
+  color: var(--color-red);
+}
+.sumaryInfo {
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.box-wrapper {
+  padding: 16px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+.line-chart {
+  width: 100%;
+}
+
+.mb-1 {
+  margin-bottom: 8px;
+}
+.mb-2 {
+  margin-bottom: 16px;
+}
+.mb-3 {
+  margin-bottom: 24px;
+}
