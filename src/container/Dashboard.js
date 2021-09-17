@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import covidAPI from "../api/covidAPI";
 import FieldSelectCountry from "../components/FieldSelectCountry";
-import { Row, Col, Spin } from "antd";
+import { Row, Col, Spin, message } from "antd";
 import { Card } from "../components/Card";
 import LineChart from "../components/LineChart";
 import Map from "../components/Map";
@@ -25,33 +25,38 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    const getMapData = async () => {
+      if (countrySelectedId && countries.length !== 0) {
+        const selectedCountry = countries.find(
+          (country) => country.Slug === countrySelectedId
+        );
+        const countryId = selectedCountry.ISO2.toLowerCase();
+        const mapDataJSON = await import(
+          `@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`
+        );
+        setMapData(mapDataJSON);
+      }
+      return {};
+    };
     const getCountryData = async () => {
-      setIsLoading(true);
-      const response = await covidAPI.fetchCountryData(countrySelectedId);
-      setIsLoading(false);
-      setCountryData(response.data);
-      setSumaryData(summaryData(response.data));
-      getMapData();
+      try {
+        setIsLoading(true);
+        const response = await covidAPI.fetchCountryData(countrySelectedId);
+        setIsLoading(false);
+        setCountryData(response.data);
+        setSumaryData(summaryData(response.data));
+        getMapData();
+      } catch (error) {
+        setIsLoading(false);
+        message.error("Data is wrong, please select another country");
+        console.log(error);
+      }
     };
     getCountryData();
   }, [countrySelectedId, countries]);
 
   const handleSelectedCountry = (countryId) => {
     setCountrySelectedId(countryId);
-  };
-
-  const getMapData = async () => {
-    if (countrySelectedId && countries.length !== 0) {
-      const selectedCountry = countries.find(
-        (country) => country.Slug === countrySelectedId
-      );
-      const countryId = selectedCountry.ISO2.toLowerCase();
-      const mapDataJSON = await import(
-        `@highcharts/map-collection/countries/${countryId}/${countryId}-all.geo.json`
-      );
-      setMapData(mapDataJSON);
-    }
-    return {};
   };
 
   // To get the latest data = the current date
