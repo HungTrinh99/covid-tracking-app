@@ -88,7 +88,7 @@ const Dashboard = () => {
         </div>
       )}
       <Row>
-        <Col span={16}>
+        <Col span={14}>
           <div className="dashboard__header">
             <h1>COVID-19 Tracker</h1>
             <FieldSelectCountry
@@ -100,7 +100,7 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row gutter={16}>
-        <Col span={16}>
+        <Col span={14}>
           <div>
             <div className="box-wrapper mb-2">
               <Row gutter={16}>
@@ -116,8 +116,13 @@ const Dashboard = () => {
             </div>
           </div>
         </Col>
-        <Col span={8}>
-          <div className="box-wrapper ">
+        <Col span={10}>
+          <div
+            className="box-wrapper "
+            style={{
+              width: "100%",
+            }}
+          >
             <Map mapData={mapData} />
           </div>
         </Col>

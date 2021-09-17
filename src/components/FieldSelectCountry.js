@@ -26,8 +26,7 @@ const FieldSelectCountry = (props) => {
               <Option key={Slug} value={Slug}>
                 {Country}
               </Option>
-            );
-            return;
+            );          
           })}
       </Select>
     </div>

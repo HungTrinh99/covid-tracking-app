@@ -9,7 +9,7 @@ highchartsMap(Highcharts);
 
 const initOptions = {
   chart: {
-    height: "500",
+    height: "600",
   },
   title: {
     text: null,
