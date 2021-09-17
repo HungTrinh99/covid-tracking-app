@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import covidAPI from "../api/covidAPI";
 import FieldSelectCountry from "../components/FieldSelectCountry";
-import { Row, Col } from "antd";
+import { Row, Col, Spin } from "antd";
 import { Card } from "../components/Card";
 import LineChart from "../components/LineChart";
 import Map from "../components/Map";
@@ -12,10 +12,13 @@ const Dashboard = () => {
   const [conuntryData, setCountryData] = useState([]);
   const [sumaryData, setSumaryData] = useState([]);
   const [mapData, setMapData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getAllCountries = async () => {
+      setIsLoading(true);
       const countriesData = await covidAPI.fetchAllCoutries();
+      setIsLoading(false);
       setCountries(countriesData.data);
     };
     getAllCountries();
@@ -23,7 +26,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getCountryData = async () => {
+      setIsLoading(true);
       const response = await covidAPI.fetchCountryData(countrySelectedId);
+      setIsLoading(false);
       setCountryData(response.data);
       setSumaryData(summaryData(response.data));
       getMapData();
@@ -76,6 +81,12 @@ const Dashboard = () => {
 
   return (
     <div>
+      {isLoading && (
+        <div className="loading">
+          <Spin size="large" />
+          <p>Data is loading...</p>
+        </div>
+      )}
       <Row>
         <Col span={16}>
           <div className="dashboard__header">
@@ -83,6 +94,7 @@ const Dashboard = () => {
             <FieldSelectCountry
               countries={countries}
               handleSelectedCountry={handleSelectedCountry}
+              isLoading={isLoading}
             />
           </div>
         </Col>

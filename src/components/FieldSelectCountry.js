@@ -3,7 +3,7 @@ import { Select } from "antd";
 const { Option } = Select;
 
 const FieldSelectCountry = (props) => {
-  const { countries, handleSelectedCountry } = props;
+  const { countries, handleSelectedCountry, isLoading } = props;
 
   return (
     <div>
@@ -17,6 +17,7 @@ const FieldSelectCountry = (props) => {
           option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
         defaultValue="vietnam"
+        disabled={isLoading}
       >
         {countries &&
           countries.map((country) => {
